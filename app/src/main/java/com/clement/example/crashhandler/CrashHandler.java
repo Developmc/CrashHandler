@@ -66,6 +66,8 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         isHandler = mHandler ;
         //获取系统默认的UncaughtException处理器
         mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler();
+        //设置该CrashHandler作为程序的默认异常处理器
+        Thread.setDefaultUncaughtExceptionHandler(getInstance());
     }
 
     /**当异常发生时,回调
@@ -75,8 +77,6 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
         if(isHandler()){
-            //设置该CrashHandler作为程序的默认异常处理器
-            Thread.setDefaultUncaughtExceptionHandler(this);
             //执行处理
             handleException(ex) ;
             //处理完成后,退出

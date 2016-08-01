@@ -28,18 +28,18 @@ import java.util.Map;
 
 public class CrashHandler implements Thread.UncaughtExceptionHandler {
     public static final String TAG = "CrashHandler" ;
-    public static final String BROADCAST_ACTION = "CrashAction";
+    public  final String BROADCAST_ACTION = "CrashAction";
     private static CrashHandler instance ;
-    private Context mContext;
+    private static Context mContext;
     //用来保存设备信息
     private Map<String,String> deviceInfo = new HashMap<>();
     private String crashInfo = "";
     //获取系统默认的UncaughtException处理器
-    private Thread.UncaughtExceptionHandler mDefaultHandler;
+    private static Thread.UncaughtExceptionHandler mDefaultHandler;
     /**
      * 判断是否进行处理,如果不需要处理,则交回给系统处理
      */
-    private boolean isHandler = false ;
+    private static boolean isHandler = false ;
     //日期格式化
     private DateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.CHINA) ;
     private String path = Environment.getDataDirectory()+"/" ;    //默认crash信息保存路径
@@ -61,13 +61,11 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     /**初始化
      * @param context
      */
-    public void init(Context context,boolean isHandler){
+    public static void init(Context context,boolean mHandler){
         mContext = context;
-        this.isHandler = isHandler ;
+        isHandler = mHandler ;
         //获取系统默认的UncaughtException处理器
         mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler();
-        //设置该CrashHandler作为程序的默认异常处理器
-        Thread.setDefaultUncaughtExceptionHandler(this);
     }
 
     /**当异常发生时,回调
@@ -77,6 +75,8 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
         if(isHandler()){
+            //设置该CrashHandler作为程序的默认异常处理器
+            Thread.setDefaultUncaughtExceptionHandler(this);
             //执行处理
             handleException(ex) ;
             //处理完成后,退出

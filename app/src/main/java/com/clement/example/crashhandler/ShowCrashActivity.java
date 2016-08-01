@@ -24,7 +24,7 @@ public class ShowCrashActivity extends AppCompatActivity {
         String showInfo = getShowInfo(crashInfo) ;
         if(bundle!=null){
             TextView tv_show = (TextView)findViewById(R.id.tv_show);
-            tv_show.setText(crashInfo);
+            tv_show.setText(showInfo);
         }
     }
 

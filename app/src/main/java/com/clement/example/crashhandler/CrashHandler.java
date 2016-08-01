@@ -202,13 +202,12 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     private String getCrashInfo(Throwable ex){
         Writer writer = new StringWriter();
         PrintWriter printWriter = new PrintWriter(writer);
-        ex.printStackTrace(printWriter);
+//        ex.printStackTrace(printWriter);
         Throwable cause = ex.getCause();
-        //不需要读取了(包含的都是重复的信息)
-//        while (cause != null) {
-//            cause.printStackTrace(printWriter);
-//            cause = cause.getCause();
-//        }
+        while (cause != null) {
+            cause.printStackTrace(printWriter);
+            cause = cause.getCause();
+        }
         printWriter.close();
         String crashInfo = writer.toString();
         return crashInfo;

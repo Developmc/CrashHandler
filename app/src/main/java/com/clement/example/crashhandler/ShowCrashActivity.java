@@ -76,7 +76,7 @@ public class ShowCrashActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+//        super.onBackPressed();
         //退出整个app
         exit();
     }

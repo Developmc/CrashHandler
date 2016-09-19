@@ -74,15 +74,4 @@ public class ShowCrashActivity extends AppCompatActivity {
         }
         return deviceInfo;
     }
-    @Override
-    public void onBackPressed() {
-//        super.onBackPressed();
-        //退出整个app
-        exit();
-    }
-    private void exit(){
-        //退出程序
-        android.os.Process.killProcess(android.os.Process.myPid());
-        System.exit(1);
-    }
 }

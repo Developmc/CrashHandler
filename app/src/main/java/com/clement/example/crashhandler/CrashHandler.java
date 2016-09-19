@@ -124,7 +124,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
      */
     private void exit(){
         android.os.Process.killProcess(android.os.Process.myPid());
-        System.exit(1);
+        System.exit(10);
     }
     /**
      * 发送广播
